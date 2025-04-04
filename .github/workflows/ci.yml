@@ -15,7 +15,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Node dependencies
         run: |
@@ -35,3 +35,15 @@ jobs:
 
       - name: Run Tests
         run: npm test
+      - name: Ensure Playwright report exists
+        run: |
+          if [ ! -d "playwright-report" ]; then
+            echo "❌ Playwright report not found! Exiting..."
+            exit 1
+          fi
+
+      - name: Deploy Playwright report to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # Deploy to GitHub Pages branch
+          folder: playwright-report
