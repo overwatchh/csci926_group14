@@ -3,7 +3,11 @@ name: Test Charts
 
 on:
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
 
 jobs:
   test:
@@ -41,6 +45,8 @@ jobs:
             echo "❌ Playwright report not found! Exiting..."
             exit 1
           fi
+      - name: List report folder contents
+        run: ls -R playwright-report
 
       - name: Deploy Playwright report to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
