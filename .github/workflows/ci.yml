@@ -53,3 +53,4 @@ jobs:
         with:
           branch: gh-pages # Deploy to GitHub Pages branch
           folder: playwright-report
+          clean: true # Clean the folder before deploying
