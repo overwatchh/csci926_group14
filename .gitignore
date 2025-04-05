@@ -1,3 +1,7 @@
+test-results/
 /output/*.html
+playwright-report/*
+# Except the folder itself
+!playwright-report/.gitkeep
 node_modules/
 __pycache__/
