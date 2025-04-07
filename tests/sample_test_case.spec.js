@@ -1,10 +1,12 @@
 const { describe, test, expect } = require("@playwright/test");
+const { console } = require("inspector");
 const path = require("path");
 
 describe("Chart Rendering and Basic Display", () => {
   test("check chart title is visible", async ({ page }) => {
     const chartPath = path.join(__dirname, "../output/example_chart.html");
     const chartUrl = "file://" + chartPath;
+    console.log("chartUrl", chartUrl);
 
     await page.goto(chartUrl);
 

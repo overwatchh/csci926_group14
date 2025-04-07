@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "generate-charts": "python charts/example_chart.py",
+    "generate-charts": "node generate-charts.js",
     "test": "playwright test"
   },
   "keywords": [],
