@@ -31,3 +31,20 @@ To verify that everything is working correctly, run the test cases using:
 ```sh
 npm run test
 ```
+# Unit Test Guide
+
+This guide will help you install the required dependencies and run the unit tests for this project.
+
+## Steps to Run Unit Tests
+
+1. **Install Dependencies**  
+   To install the required `matplotlib` library in the local repository, run the following command:
+
+   ```bash
+   pip install matplotlib --target=mathplotlib
+2. **Run unit test**  
+   To run the unit test, run the following command:
+
+   ```bash
+   python run_unit_test.py
+
