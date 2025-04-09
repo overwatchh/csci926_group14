@@ -1,4 +1,18 @@
-# Project Setup and Usage Guide
+## End-to-End Test Report
+
+The end-to-end test report can be found at the following link:
+[End-to-End Test Report](https://overwatchh.github.io/csci926_group14/e2e_report/)
+
+## Unit Testing Test Cases Report
+
+The unit testing test cases report can be found at the following link:
+[Unit Testing Test Cases Report](https://overwatchh.github.io/csci926_group14/unit_test_report/)
+
+## Unit Testing Coverage
+
+The unit testing coverage details are provided as part of the unit testing report. Please refer to the linked unit testing report above for detailed information.
+
+# End-to-end test guide
 
 ## Prerequisites
 Ensure you have the following installed on your system:

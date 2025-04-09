@@ -10,5 +10,5 @@ module.exports = defineConfig({
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
   },
-  reporter: [['list'], ['html', { outputFolder: 'e2e-report', open: 'never' }]],
+  reporter: [['list'], ['html', { outputFolder: 'e2e_report', open: 'never' }]],
 });
