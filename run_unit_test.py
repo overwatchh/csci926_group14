@@ -13,7 +13,7 @@ subprocess.run(
         "unit_tests",
         "--html=unit_test_report/index.html",
         "--self-contained-html",
-        "--cov=mathplotlib",  # specify folder to check coverage
+        "--cov=matplotlib",  # specify folder to check coverage
         "--cov-report=term",  # show summary in terminal
         "--cov-report=html:unit_test_report/cov",  # generate HTML report
     ]

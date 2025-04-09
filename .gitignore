@@ -1,10 +1,10 @@
 test-results/
 /output/*.html
-e2e-report/*
+e2e_report/*
 unit_test_report/*
 # Except the folder itself
 !e2e-report/.gitkeep
 node_modules/
-mathplotlib/
+matplotlib/
 __pycache__/
 .coverage

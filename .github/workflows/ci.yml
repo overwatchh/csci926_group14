@@ -38,8 +38,8 @@ jobs:
         run: npm run generate-charts
       - name: Run E2E Tests
         run: npm run e2e-test
-      - name: Get mathplotlib source code for unit testing
-        run: pip install matplotlib --target=mathplotlib
+      - name: Get matplotlib source code for unit testing
+        run: pip install matplotlib --target=matplotlib
       - name: Run unit tests
         run: python run_unit_test.py      
       - name: Prepare combined report folder
