@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir combined_report
           cp -r e2e_report combined_report/e2e_report
-          cp -r unit_test_report/* combined_report/unit_test_report
+          cp -r unit_test_report combined_report/unit_test_report
 
       - name: Deploy Playwright report to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
