@@ -8,7 +8,7 @@
   },
   "scripts": {
     "generate-charts": "node generate-charts.js",
-    "test": "playwright test"
+    "e2e-test": "playwright test"    
   },
   "keywords": [],
   "author": "",

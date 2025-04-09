@@ -41,16 +41,19 @@ jobs:
         run: npm test
       - name: Ensure Playwright report exists
         run: |
-          if [ ! -d "playwright-report" ]; then
+          if [ ! -d "e2e-report" ]; then
             echo "❌ Playwright report not found! Exiting..."
             exit 1
           fi
-      - name: List report folder contents
-        run: ls -R playwright-report
+      - name: Prepare combined report folder
+        run: |
+          mkdir combined_report
+          cp -r e2e_report combined_report/e2e_report
+          cp -r unit_test_report combined_report/unit_test_report
 
       - name: Deploy Playwright report to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # Deploy to GitHub Pages branch
-          folder: playwright-report
+          folder: combined_report
           clean: true # Clean the folder before deploying

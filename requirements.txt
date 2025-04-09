@@ -1,3 +1,5 @@
 matplotlib
 mpld3
 pytest
+pytest-html
+pytest-cov
