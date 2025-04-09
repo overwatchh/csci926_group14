@@ -38,7 +38,7 @@ jobs:
         run: npm run generate-charts
 
       - name: Run E2E Tests
-        run: npm e2e-test
+        run: npm run e2e-test
       - name: Run unit tests
         run: python run_unit_test.py
       - name: Ensure Playwright report exists
