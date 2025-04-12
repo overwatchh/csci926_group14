@@ -43,7 +43,7 @@ npm run generate-charts
 ### 4. Run Test Cases
 To verify that everything is working correctly, run the test cases using:
 ```sh
-npm run test
+npm run e2e-test
 ```
 # Unit Test Guide
 
