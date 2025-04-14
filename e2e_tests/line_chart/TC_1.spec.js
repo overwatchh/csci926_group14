@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const math = require('mathjs');
 
-const testCasesDir = path.join(__dirname, '../../html_charts');
+const testCasesDir = path.join(__dirname, '../../output');
 
 // Map of HTML file names to their corresponding math function expressions
 const formulas = {
@@ -20,15 +20,14 @@ const formulas = {
 };
 
 // Get list of test files in the directory
-const testFiles = fs.readdirSync(testCasesDir).filter(file => file.endsWith('.html'));
+const testFiles = fs.readdirSync(testCasesDir).filter(file => file.startsWith('line'));
 
 for (const file of testFiles) {
-  const funcExpr = formulas[file];
-  if (!funcExpr) continue;
 
   test(`Function plot validation for ${file}`, async ({ page }) => {
     const filePath = path.join(testCasesDir, file);
     const fileUrl = `file://${filePath}`;
+    const funcExpr = formulas[file];
 
     await page.goto(fileUrl);
 
@@ -42,10 +41,9 @@ for (const file of testFiles) {
       if (!figure) return null;
 
       // Assuming first line has the data
-      const lineData = figure.data[0];
-      if (!lineData || !lineData.data) return null;
+      const lineData = figure.data;
 
-      return lineData.data;
+      return lineData.data01;
     });
 
     expect(data).not.toBeNull();

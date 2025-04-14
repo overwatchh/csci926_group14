@@ -7,7 +7,7 @@ import matplotlib.patches as mpatches
 from math import pi, sin, cos, exp, sqrt, log
 
 # Create output directory
-output_dir = Path("html_charts")
+output_dir = Path("output")
 output_dir.mkdir(exist_ok=True)
 
 # Set random seed for reproducibility
