@@ -1,13 +1,66 @@
-const { describe, test, expect } = require("@playwright/test");
-const path = require("path");
-describe("Line chart", () => {
-  test("Chart variant 1:", async ({ page }) => {
-    const chartPath = path.join(__dirname, "../../output/example_chart.html");
-    const chartUrl = "file://" + chartPath;
+const { test, expect } = require('@playwright/test');
+const path = require('path');
+const fs = require('fs');
+const math = require('mathjs');
 
-    await page.goto(chartUrl);
-    
-    await expect(5 == 5).toBe(true);
+const testCasesDir = path.join(__dirname, '../../html_charts');
+
+// Map of HTML file names to their corresponding math function expressions
+const formulas = {
+  'line_01.html': 'x * sin(x)',
+  'line_02.html': 'min(x, 5)',
+  'line_03.html': 'sqrt(x)',
+  'line_04.html': 'log(x + 1)',
+  'line_05.html': '1 - exp(-x)',
+  'line_06.html': 'x - (x^3)/6',
+  'line_07.html': 'floor(x)',
+  'line_08.html': 'mod(x, 3)',
+  'line_09.html': 'abs(sin(x))',
+  'line_10.html': 'x / (1 + x)',
+};
+
+// Get list of test files in the directory
+const testFiles = fs.readdirSync(testCasesDir).filter(file => file.endsWith('.html'));
+
+for (const file of testFiles) {
+  const funcExpr = formulas[file];
+  if (!funcExpr) continue;
+
+  test(`Function plot validation for ${file}`, async ({ page }) => {
+    const filePath = path.join(testCasesDir, file);
+    const fileUrl = `file://${filePath}`;
+
+    await page.goto(fileUrl);
+
+    const svg = await page.locator('svg').first();
+    await expect(svg).toBeVisible();
+
+    // Extract the plot data from mpld3
+    const data = await page.evaluate(() => {
+      // This assumes mpld3 is used and data is in line objects
+      const figure = window.mpld3?.figures?.[0];
+      if (!figure) return null;
+
+      // Assuming first line has the data
+      const lineData = figure.data[0];
+      if (!lineData || !lineData.data) return null;
+
+      return lineData.data;
+    });
+
+    expect(data).not.toBeNull();
+    expect(Array.isArray(data)).toBe(true);
+
+    const parsedFunc = math.parse(funcExpr);
+    const compiledFunc = parsedFunc.compile();
+
+    for (const point of data) {
+      const x = point[0];
+      const expectedY = point[1];
+      const calculatedY = compiledFunc.evaluate({ x });
+
+      // Allow small floating point error
+      expect(Math.abs(calculatedY - expectedY)).toBeLessThan(0.01);
+    }
   });
-  // test for next chart variant until 10
-});
+}

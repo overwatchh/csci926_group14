@@ -8,7 +8,7 @@
   },
   "scripts": {
     "generate-charts": "node generate-charts.js",
-    "e2e-test": "playwright test"    
+    "e2e-test": "playwright test"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,8 @@
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "playwright": "^1.51.1"
+  },
+  "dependencies": {
+    "mathjs": "^14.4.0"
   }
 }
