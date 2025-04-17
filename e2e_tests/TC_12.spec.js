@@ -23,7 +23,7 @@ for (const chartType of chartTypes) {
 
         await page.goto(chartUrl);
         const xAxisLocator = page.locator(".mpld3-yaxis");
-        await expect(xAxisLocator).toBeVisible();
+        await expect(xAxisLocator.first()).toBeVisible();
       });
     });
   }
