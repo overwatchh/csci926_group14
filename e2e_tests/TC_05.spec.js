@@ -13,7 +13,7 @@ const chartVariants = Array.from({ length: 2 }, (_, i) => i + 1); // [1, 2]
 chartTypes.forEach((chartType) => {
   for (const variant of chartVariants) {
     test.describe(`${chartType} - variant ${variant}`, () => {
-      test(`TC09[${chartType} v${variant}]: Reset tool visibility`, async ({
+      test(`TC09[${chartType} v${variant}]: Zoom functionality`, async ({
         page,
       }) => {
         const chartPath = path.join(
