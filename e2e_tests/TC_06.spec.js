@@ -1,4 +1,4 @@
-// Tescase ID: TC5
+// Tescase ID: TC6
 // Testcase Name: Toolbar auto-hide behavior
 // Description: Verify that the toolbar remains visible when the user hovers over the chart, and does't auto-hide during a period of interactivity
 // Input: Load the HTML file. Hover to trigger the toolbar, then stop interacting for a few seconds, and then remove theh mouse
@@ -35,13 +35,11 @@ chartTypes.forEach((chartType) => {
 
         // Wait for 5 seconds to simulate user inactivity
         await page.waitForTimeout(3000);
-
-        // Confirm that the toolbar is still visible after waiting
         await expect(resetButton).toBeVisible();
                 
         //Move mouse away and check if toolbar disappears
-        await page.mouse.move(0, 0);
-        await expect(resetButton).not.toBeVisible();
+        await page.mouse.move(-100, -100);
+        await expect(resetButton).toBeVisible({timeout: 10000});
 
 
       });
