@@ -33,7 +33,7 @@ chartTypes.forEach((chartType) => {
         const resetButton = page.locator(".mpld3-resetbutton");
         await expect(resetButton).toBeVisible();
 
-        // Wait for 5 seconds to simulate user inactivity
+        // Wait for 3 seconds to simulate user inactivity
         await page.waitForTimeout(3000);
         await expect(resetButton).toBeVisible();
                 

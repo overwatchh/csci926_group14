@@ -1,6 +1,7 @@
 test-results/
 /output/*.html
 e2e_report/*
+!e2e_report/.gitkeep
 unit_test_report/*
 # Except the folder itself
 !e2e-report/.gitkeep
