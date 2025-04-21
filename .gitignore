@@ -8,3 +8,4 @@ node_modules/
 matplotlib/
 __pycache__/
 .coverage
+/test_data/*.json
