@@ -8,6 +8,9 @@ sys.path.insert(
 
 import pytest
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use("Agg")  # Use non-interactive backend for testing
 from io import BytesIO
 import random
 
@@ -20,7 +23,7 @@ def generate_horizontal_bar_chart(data, labels, title="Horizontal Bar Chart"):
         raise ValueError("Data and labels must have the same length.")
     if not data or not labels:
         raise ValueError("Data and labels cannot be empty.")
-    
+
     fig, ax = plt.subplots()
     ax.barh(labels, data)
     ax.set_title(title)
@@ -35,10 +38,12 @@ def create_random_dataset(seed):
     labels = [f"Label_{i}" for i in range(length)]
     return data, labels
 
+
 test_cases = [create_random_dataset(seed) for seed in range(60)]
 
 
 # --------- Tests Start Here ---------
+
 
 @pytest.mark.parametrize("data, labels", test_cases)
 def test_generate_chart_with_random_data(data, labels):
@@ -46,7 +51,7 @@ def test_generate_chart_with_random_data(data, labels):
     buf = BytesIO()
     fig.savefig(buf, format="png")
     buf.seek(0)
-    assert buf.read(4) == b'\x89PNG'  # PNG file magic number
+    assert buf.read(4) == b"\x89PNG"  # PNG file magic number
 
     # Check title
     assert fig.axes[0].get_title() == "Horizontal Bar Chart"
@@ -65,27 +70,33 @@ def test_chart_custom_title():
     assert fig.axes[0].get_title() == title
 
 
-@pytest.mark.parametrize("bad_data, bad_labels, expected_exception", [
-    ([], [], ValueError),
-    ("bad", ["A", "B"], TypeError),
-    ([1, 2], "bad", TypeError),
-    ([1, 2], ["A"], ValueError),
-    (object(), ["A", "B"], TypeError),
-    ([1, 2], object(), TypeError),
-    ({1: 'a'}, ['a'], TypeError),
-    ([1, 2], {1: 'a'} , TypeError),
-])
+@pytest.mark.parametrize(
+    "bad_data, bad_labels, expected_exception",
+    [
+        ([], [], ValueError),
+        ("bad", ["A", "B"], TypeError),
+        ([1, 2], "bad", TypeError),
+        ([1, 2], ["A"], ValueError),
+        (object(), ["A", "B"], TypeError),
+        ([1, 2], object(), TypeError),
+        ({1: "a"}, ["a"], TypeError),
+        ([1, 2], {1: "a"}, TypeError),
+    ],
+)
 def test_invalid_inputs_raise_errors(bad_data, bad_labels, expected_exception):
     with pytest.raises(expected_exception):
         generate_horizontal_bar_chart(bad_data, bad_labels)
 
 
-@pytest.mark.parametrize("extreme_data, labels", [
-    ([0, 0, 0], ["A", "B", "C"]),
-    ([1e10, 1e12, 1e14], ["A", "B", "C"]),
-    ([-100, -50, -10], ["A", "B", "C"]),
-    ([1, 0, -1], ["A", "B", "C"]),
-])
+@pytest.mark.parametrize(
+    "extreme_data, labels",
+    [
+        ([0, 0, 0], ["A", "B", "C"]),
+        ([1e10, 1e12, 1e14], ["A", "B", "C"]),
+        ([-100, -50, -10], ["A", "B", "C"]),
+        ([1, 0, -1], ["A", "B", "C"]),
+    ],
+)
 def test_chart_extreme_values(extreme_data, labels):
     fig = generate_horizontal_bar_chart(extreme_data, labels)
     yticklabels = [tick.get_text() for tick in fig.axes[0].get_yticklabels()]
@@ -103,4 +114,3 @@ def test_chart_ylabels_and_bar_count():
 
     yticklabels = [tick.get_text() for tick in ax.get_yticklabels()]
     assert yticklabels == labels
-

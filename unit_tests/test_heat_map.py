@@ -31,6 +31,7 @@ def generate_heatmap(data, title="Heatmap", cmap="viridis", aspect="auto"):
     ax.set_title(title)
     return fig
 
+
 # -------- Helpers for Tests --------
 def create_random_heatmap(seed, rows=None, cols=None):
     np.random.seed(seed)
@@ -41,11 +42,13 @@ def create_random_heatmap(seed, rows=None, cols=None):
     data = np.random.rand(rows, cols) * 100
     return data
 
+
 # Generate 100 random heatmaps
 test_cases = [create_random_heatmap(seed) for seed in range(100)]
 
 
 # --------- Tests Start Here ---------
+
 
 @pytest.mark.parametrize("data", test_cases)
 def test_generate_heatmap_with_random_data(data):
@@ -53,7 +56,7 @@ def test_generate_heatmap_with_random_data(data):
     buf = BytesIO()
     fig.savefig(buf, format="png")
     buf.seek(0)
-    assert buf.read(4) == b'\x89PNG'  # PNG magic bytes
+    assert buf.read(4) == b"\x89PNG"  # PNG magic bytes
 
     assert fig.axes[0].get_title() == "Heatmap"
     assert data.ndim == 2
@@ -84,18 +87,21 @@ def test_heatmap_custom_title_and_aspect():
 def test_colorbar_exists():
     data = np.random.rand(5, 5)
     fig = generate_heatmap(data)
-    colorbar_found = any(isinstance(ax, plt.Axes) and ax.get_images() == [] for ax in fig.axes)
-    assert not colorbar_found  # Colorbar added to separate axes usually
+    # A colorbar adds an additional axes to the figure
+    assert len(fig.axes) > 1
 
 
-@pytest.mark.parametrize("bad_input", [
-    123,                        # integer
-    "invalid input",            # string
-    {"a": 1, "b": 2},            # dict
-    (1, 2, 3),                  # tuple
-    {1, 2, 3},                  # set
-    object(),                   # random object
-])
+@pytest.mark.parametrize(
+    "bad_input",
+    [
+        123,  # integer
+        "invalid input",  # string
+        {"a": 1, "b": 2},  # dict
+        (1, 2, 3),  # tuple
+        {1, 2, 3},  # set
+        object(),  # random object
+    ],
+)
 def test_heatmap_invalid_types(bad_input):
     with pytest.raises(TypeError):
         generate_heatmap(bad_input)
@@ -114,4 +120,3 @@ def test_heatmap_1d_array_raises():
 def test_heatmap_nested_empty_list_raises():
     with pytest.raises(ValueError):
         generate_heatmap([[]])
-
