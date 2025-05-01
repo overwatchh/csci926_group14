@@ -1,6 +1,8 @@
 import os
 import subprocess
 
+import matplotlib
+matplotlib.use('Agg') 
 # Create output folder
 os.makedirs("unit_test_report", exist_ok=True)
 import glob
