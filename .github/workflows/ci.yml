@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - pipeline
   pull_request:
     branches:
       - master
@@ -47,7 +48,8 @@ jobs:
           mkdir combined_report
           cp -r e2e_report combined_report/e2e_report
           cp -r unit_test_report combined_report/unit_test_report
-          cp -r unit_test_report/cov combined_report/coverage_report
+          cp -r unit_test_report/cov combined_report/unit_test_report/cov
+          rm -f combined_report/unit_test_report/cov/.gitignore
 
       - name: Deploy Playwright report to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
