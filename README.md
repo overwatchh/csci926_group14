@@ -10,7 +10,8 @@ The unit testing test cases report can be found at the following link:
 
 ## Unit Testing Coverage
 
-The unit testing coverage details are provided as part of the unit testing report. Please refer to the linked unit testing report above for detailed information.
+The unit testing test cases coverage report can be found at the following link:
+[Unit Test Cases Coverage Report](https://overwatchh.github.io/csci926_group14/unit_test_report/cov)
 
 # End-to-end test guide
 
